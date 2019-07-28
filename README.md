@@ -11,6 +11,10 @@ _NB: Because it works by analysing the constructed views, it will not work on
 materialised views, because they exist only as tables, not as views to be
 interrogated._
 
+If you like dbt, like dogs and live in the London area - maybe you'll like
+working at [tails.com](http://tails.com/careers). If that sounds up your street,
+then get in touch, we're always looking for smart people and we'd love to hear from you!
+
 ## How to install
 To install the package just add it to your `packages.yml` file. If you've never
 used packages before, then you can [read more about them here](https://docs.getdbt.com/docs/package-management).
