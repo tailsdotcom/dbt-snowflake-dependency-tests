@@ -1,5 +1,5 @@
 name: 'dbt_sf_dep_check'
-version: '0.0.1'
+version: '0.1.0'
 
 require-dbt-version: ">=0.14.0"
 
