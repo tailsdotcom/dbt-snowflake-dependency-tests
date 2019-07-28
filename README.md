@@ -12,16 +12,67 @@ materialised views, because they exist only as tables, not as views to be
 interrogated._
 
 ## How to install
-TBD
+To install the package just add it to your `packages.yml` file. If you've never
+used packages before, then you can [read more about them here](https://docs.getdbt.com/docs/package-management).
+
+```yaml
+packages:
+  - git: "https://github.com/tailsdotcom/dbt-snowflake-dependency-tests.git"
+    revision: "0.0.1"
+```
 
 ## How to Use
-TBC
+The package is designed to be run as a `post-hook`, so you can simply reference
+it in your `dbt_project.yml`.
+
+```yaml
+models:
+  my_project:
+    base:
+      schema: base
+      materialized: view
+      post-hook:
+        - "{{ dbt_sf_dep_check.assert_refs(allow_rules=['foo_db\\..*', 'bar_db\\..*'], except_models=['my_fancy_model']) }}"
+```
+
+The function `dbt_sf_dep_check.assert_refs` accepts two key word arguments:
+- `allow_rules` which is a list of regex expressions to match combinations of
+  database and schema names. For example `'foo_db\\..*'` will match any of the
+  schemas in the database `FOO_DB` (yep it's case insensitive). Note that you
+  you need to escape any backslashes which you want to appear in your eventual
+  regex, as otherwise the yaml parser will get rid of them.
+- `expect_models` which accepts a list of model names to skip the checks for.
+  Given that adding it as a `post-hook` for a schema will run it for all models,
+  you may still have some which don't play nice. In particular any models referencing
+  snowflake performance tables will probably fail and will need to be in this list.
+
+NB: Because we're calling a macro in the dbt jinja context, your patterns can include
+references is the `target`, for example below where we want to make sure that we only
+depend on objects in the current target database and schema with the extension `_base`.
+
+```
+post-hook:
+    - "{{ dbt_sf_dep_check.assert_refs(allow_rules=[target.database + '\\.' + target.schema + '_base'] }}"
+```
 
 ## What to expect
-TBC
+If any of your models don't follow the rules you've set above, then you'll get an
+error at runtime.
+
+```
+...
+Completed with 1 errors:
+
+Database Error in model my_problem_model (models/base/my_problem_model.sql)
+  Invalid Dependencides for view. Invalid dependencies: PROBLEM_DB.PROBLEM_SCHEMA. Allowed patterns are: ['foo_db\\..*', 'bar_db\\..*']
+  compiled SQL at target/compiled/my_project/base/my_problem_model.sql
+```
+
+The error message helpfully says which dependent object it's found, and reminds
+the user what values *are* allowed.
 
 # Contributing
-Contributions and pull requests are encouraged to this repo. Bear in mind that
+Contributions, feedback, issues and pull requests are encouraged to this repo. Bear in mind that
 there is currently no automated testing present, and so all changes will need
 to be tested manually against a snowflake instance before releasing. Please
 be patient for this process.
