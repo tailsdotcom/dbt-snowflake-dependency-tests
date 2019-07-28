@@ -3,8 +3,8 @@ A DBT Package for testing dependencies of snowflake models. This was developed
 at a hackday at [tails.com](http://tails.com/careers) and is used in our production
 dbt architecture.
 
-*tl;dr:* If you use DBT and Snowflake, use this to make sure that you keep your
-dependencies tidy and understandable.
+> *tl;dr:* If you use DBT and Snowflake, use this to make sure that you keep your
+> dependencies tidy and understandable.
 
 This is a [dbt](http://www.getdbt.com) package for asserting snowflake model
 dependencies. It uses the `get_object_references` function in snowflake, and
