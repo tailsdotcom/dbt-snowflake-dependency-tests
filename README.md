@@ -18,7 +18,7 @@ used packages before, then you can [read more about them here](https://docs.getd
 ```yaml
 packages:
   - git: "https://github.com/tailsdotcom/dbt-snowflake-dependency-tests.git"
-    revision: "0.0.1"
+    revision: "0.1.0"
 ```
 
 ## How to Use
