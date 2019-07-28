@@ -13,7 +13,7 @@ interrogated._
 
 If you like dbt, like dogs and live in the London area - maybe you'll like
 working at [tails.com](http://tails.com/careers). If that sounds up your street,
-then get in touch, we're always looking for smart people and we'd love to hear from you!
+then get in touch. We're always looking for smart people and we'd love to hear from you!
 
 ## How to install
 To install the package just add it to your `packages.yml` file. If you've never
