@@ -1,0 +1,9 @@
+name: 'dbt_sf_dep_check'
+version: '0.0.1'
+
+require-dbt-version: ">=0.14.0"
+
+target-path: "target"
+clean-targets: ["target", "dbt_modules"]
+macro-paths: ["macros"]
+log-path: "logs"
