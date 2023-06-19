@@ -1,3 +1,9 @@
+# REPOSITORY NO LONGER MAINTAINED
+
+**NOTE:** This repository is no longer maintained. With the release of the dbt
+`manifest.json` file - the same results can be much better acheived by parsing
+that file. We do not recommend using this library in production code.
+
 # DBT Snowflake Dependency Tests
 A DBT Package for testing dependencies of snowflake models. This was developed
 at a hackday at [tails.com](http://tails.com/careers) and is used in our production
